@@ -2,8 +2,9 @@
 #include <stdexcept>
 using namespace std;
 
-class Node {
- public:
+class Node
+{
+public:
   int data;
   Node *next = NULL;
   Node *prev = NULL;
@@ -11,8 +12,9 @@ class Node {
   Node(int d) { data = d; }
 };
 
-class DoublyLinkedList {
- public:
+class DoublyLinkedList
+{
+public:
   Node *head = NULL;
   int length = 0;
 
@@ -27,31 +29,40 @@ class DoublyLinkedList {
   void removeLast();
 };
 
-void DoublyLinkedList::print() {
+void DoublyLinkedList::print()
+{
   Node *temp = head;
-  while (temp != NULL) {
+  while (temp != NULL)
+  {
     cout << temp->data;
     temp = temp->next;
-    if (temp != NULL) {
+    if (temp != NULL)
+    {
       cout << " <-> ";
     }
   }
 
   cout << endl;
 }
-void DoublyLinkedList::addAtFirst(int data) {
+void DoublyLinkedList::addAtFirst(int data)
+{
   Node *newNode = new Node(data);
   Node *temp = head;
   newNode->next = temp;
-  if (temp != NULL) temp->prev = newNode;
+  if (temp != NULL)
+    temp->prev = newNode;
   head = newNode;
   length++;
 };
-void DoublyLinkedList::addAtIndex(int data, int index) {
-  if (index == 0) {
+void DoublyLinkedList::addAtIndex(int data, int index)
+{
+  if (index == 0)
+  {
     addAtFirst(data);
     return;
-  } else if (index > length) {
+  }
+  else if (index > length)
+  {
     throw out_of_range("Index Out of Bounds");
     return;
   }
@@ -59,7 +70,8 @@ void DoublyLinkedList::addAtIndex(int data, int index) {
   int i = 0;
   Node *temp = head;
 
-  while (temp != NULL && i < index - 1) {
+  while (temp != NULL && i < index - 1)
+  {
     temp = temp->next;
     i++;
   }
@@ -73,32 +85,40 @@ void DoublyLinkedList::addAtIndex(int data, int index) {
   length++;
 };
 
-void DoublyLinkedList::addAtLast(int data) {
+void DoublyLinkedList::addAtLast(int data)
+{
   Node *newNode = new Node(data);
   Node *temp = head;
 
-  while (temp->next != NULL) temp = temp->next;
+  while (temp->next != NULL)
+    temp = temp->next;
 
   temp->next = newNode;
   newNode->prev = temp;
   length++;
 };
 
-void DoublyLinkedList::removeFirst() {
+void DoublyLinkedList::removeFirst()
+{
   head = head->next;
   head->prev = NULL;
   length--;
 }
-void DoublyLinkedList::removeAtIndex(int index) {
+void DoublyLinkedList::removeAtIndex(int index)
+{
   if (index == 0)
     removeFirst();
-  else if (index >= length - 1) {
+  else if (index >= length - 1)
+  {
     throw out_of_range("Index Out Of Bounds");
     return;
-  } else {
+  }
+  else
+  {
     int i = 0;
     Node *temp = head;
-    while (temp != NULL && i < index - 1) {
+    while (temp != NULL && i < index - 1)
+    {
       temp = temp->next;
       i++;
     }
@@ -108,16 +128,20 @@ void DoublyLinkedList::removeAtIndex(int index) {
   }
 }
 
-void DoublyLinkedList::removeLast() {
-  if (head != NULL) {
+void DoublyLinkedList::removeLast()
+{
+  if (head != NULL)
+  {
     Node *temp = head;
-    while (temp->next->next != NULL) temp = temp->next;
+    while (temp->next->next != NULL)
+      temp = temp->next;
     temp->next = NULL;
     length--;
   }
 }
 
-int main() {
+int main()
+{
   DoublyLinkedList dll;
   cout << "Adding" << endl;
   dll.addAtFirst(2);
@@ -128,7 +152,8 @@ int main() {
   cout << "List Size: " << dll.length << endl;
   dll.print();
 
-  cout << endl << "Deleting " << endl;
+  cout << endl
+       << "Deleting " << endl;
   dll.removeLast();
   dll.removeFirst();
   dll.removeAtIndex(1);
