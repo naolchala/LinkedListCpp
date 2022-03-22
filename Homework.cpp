@@ -16,27 +16,26 @@ public:
     Node<T> *tail = NULL;
     int length = 0;
 
-    void print()
+    void print(ostream &os) const
     {
-        cout << "[";
+        os << "[";
         Node<T> *temp = head;
         while (temp != NULL)
         {
-            if (is_same<T, LinkedList<int>>::value)
+            os << temp->data;
+            if (temp->next != NULL)
             {
-                temp->data.print();
-            }
-            else
-            {
-                cout << temp->data;
-                if (temp->next != NULL)
-                {
-                    cout << ", ";
-                }
+                os << ", ";
             }
             temp = temp->next;
         }
-        cout << "]";
+        os << "]";
+    }
+
+    friend ostream &operator<<(ostream &os, const LinkedList<T> &c)
+    {
+        c.print(os);
+        return os;
     }
 
     void push_back(T data)
@@ -61,18 +60,48 @@ public:
         tail = NewNode;
         length++;
     }
+
+    T &operator[](int index)
+    {
+        if (index >= length)
+        {
+            cerr << "Index out of Bounds" << endl;
+            exit(0);
+        }
+
+        int i = 0;
+        Node<T> *temp = head;
+
+        while (temp != NULL)
+        {
+            if (i == index)
+            {
+                break;
+            };
+            i++;
+            temp = temp->next;
+        }
+
+        return temp->data;
+    }
 };
 
 int main()
 {
     LinkedList<int> ll;
+    LinkedList<int> al;
     LinkedList<LinkedList<int>> mll;
+
     ll.push_back(1);
     ll.push_back(2);
     ll.push_back(3);
 
-    ll.print();
     mll.push_back(ll);
-    mll.print();
+    mll.push_back(ll);
+
+    cout << ll << endl;
+    cout << mll << endl;
+    cout << mll[0][1] << endl;
+
     return 0;
 }
