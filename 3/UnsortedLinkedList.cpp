@@ -2,22 +2,17 @@
 #include <stdexcept>
 using namespace std;
 
-class Node
-{
-public:
+class Node {
+   public:
     int data;
     Node *next = NULL;
     Node *prev = NULL;
 
-    Node(int d)
-    {
-        data = d;
-    }
+    Node(int d) { data = d; }
 };
 
-class UnsortedLinkedList
-{
-public:
+class UnsortedLinkedList {
+   public:
     Node *head = NULL;
     Node *tail = NULL;
     int length = 0;
@@ -26,16 +21,12 @@ public:
      * Adds Element on the first index
      * @param d
      */
-    void push_front(int d)
-    {
+    void push_front(int d) {
         Node *newNode = new Node(d);
         Node *temp = head;
-        if (temp != NULL)
-        {
+        if (temp != NULL) {
             temp->prev = newNode;
-        }
-        else
-        {
+        } else {
             tail = newNode;
         }
         newNode->next = temp;
@@ -49,12 +40,10 @@ public:
      * @brief Time Complexity @b O(1)
      * @param data
      */
-    void push_back(int d)
-    {
+    void push_back(int d) {
         Node *newNode = new Node(d);
         Node *temp = tail;
-        if (tail == NULL)
-        {
+        if (tail == NULL) {
             tail = newNode;
             head = newNode;
             length++;
@@ -67,12 +56,10 @@ public:
         length++;
     }
 
-    void pop_front()
-    {
+    void pop_front() {
         if (head->next != NULL)
             head = head->next;
-        else
-        {
+        else {
             head = head->next;
             tail = tail->prev;
         }
@@ -80,10 +67,8 @@ public:
         length--;
     }
 
-    void pop_back()
-    {
-        if (tail->prev == NULL)
-        {
+    void pop_back() {
+        if (tail->prev == NULL) {
             tail = NULL;
             head = NULL;
             length--;
@@ -94,64 +79,50 @@ public:
         tail->next = NULL;
         length--;
     }
-    void remove(int ele)
-    {
+    void remove(int ele) {
         Node *temp = head;
-        while (temp != NULL)
-        {
-            if (ele == temp->data)
-            {
-                if (temp->prev != NULL)
-                {
+        while (temp != NULL) {
+            if (ele == temp->data) {
+                if (temp->prev != NULL) {
                     temp->prev->next = temp->next;
-                    if (temp->next != NULL)
-                    {
+                    if (temp->next != NULL) {
                         temp->next->prev = temp->prev;
                     }
                     length--;
-                }
-                else
-                {
+                } else {
                     pop_front();
                 }
             }
             temp = temp->next;
         }
     }
-    void print(ostream &os) const
-    {
+    void print(ostream &os) const {
         os << "[";
         Node *temp = head;
-        while (temp != NULL)
-        {
+        while (temp != NULL) {
             os << temp->data;
             temp = temp->next;
-            if (temp != NULL)
-            {
+            if (temp != NULL) {
                 os << ", ";
             }
         }
         os << "]";
     }
 
-    friend ostream &operator<<(ostream &os, const UnsortedLinkedList &usll)
-    {
+    friend ostream &operator<<(ostream &os, const UnsortedLinkedList &usll) {
         usll.print(os);
         return os;
     }
 
-    int &operator[](int index)
-    {
-        if (index >= length)
-        {
+    int &operator[](int index) {
+        if (index >= length) {
             cerr << "Index out of Bounds" << endl;
             exit(0);
         }
 
         int i = 0;
         Node *temp = head;
-        while (i != index && temp != NULL)
-        {
+        while (i != index && temp != NULL) {
             temp = temp->next;
             i++;
         }
@@ -167,15 +138,12 @@ public:
      *  the first index element found on.
      * if element is not found returns @b -1
      */
-    int search(int key)
-    {
+    int search(int key) {
         int i = 0;
         Node *temp = head;
 
-        while (temp != NULL)
-        {
-            if (temp->data == key)
-            {
+        while (temp != NULL) {
+            if (temp->data == key) {
                 return i;
             }
             i++;
@@ -186,8 +154,7 @@ public:
     }
 };
 
-int main()
-{
+int main() {
     UnsortedLinkedList usll;
     cout << usll.length << endl;
     cout << usll << endl;
